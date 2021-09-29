@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-lighthall-dev-161449-authRole",
+      "UnauthRoleArn": "arn:aws:iam::099802226748:role/amplify-lighthall-dev-161449-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::099802226748:role/amplify-lighthall-dev-161449-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-lighthall-dev-161449-deployment",
+      "UnauthRoleName": "amplify-lighthall-dev-161449-unauthRole",
+      "StackName": "amplify-lighthall-dev-161449",
+      "StackId": "arn:aws:cloudformation:us-east-1:099802226748:stack/amplify-lighthall-dev-161449/49162200-216a-11ec-ad51-12ae3af2862f",
+      "AmplifyAppId": "d3lb01f3y6lwb8"
+    }
+  }
+}

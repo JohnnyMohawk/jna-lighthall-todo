@@ -7,6 +7,16 @@
   pointer-events: none;
 }
 
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+  border: none;
+  background-color: #ddd;
+  margin-bottom: 100;
+  padding: 20;
+  font-size: 18;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

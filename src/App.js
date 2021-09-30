@@ -45,7 +45,7 @@ const App = () => {
   return (
     <div style={styles.container}>
       <AmplifySignOut />
-      <h2>Amplify Todos</h2>
+      <h2>JNA Lighthall Todos</h2>
       <input
         onChange={event => setInput('name', event.target.value)}
         style={styles.input}
@@ -58,12 +58,18 @@ const App = () => {
         value={formState.description}
         placeholder="Description"
       />
-      <input
+      {/* <input
         onChange={event => setInput('status', event.target.value)}
         style={styles.input}
         value={formState.status}
         placeholder="Status"
-      />
+      /> */}
+      <select name="status" id="status" onChange={event => setInput('status', event.target.value)}>
+          <option selected value="notStarted">Not Started</option>
+          <option value="inProgress">In Progress</option>
+          <option value="complete">Complete</option>
+          <option value="transferred">Transferred</option>
+        </select>
       <input
         onChange={event => setInput('dueDate', event.target.value)}
         style={styles.input}

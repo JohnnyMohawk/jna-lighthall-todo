@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
@@ -15,10 +15,13 @@ const initialState = { name: '', description: '', status: 'Not Started', dueDate
 const App = () => {
   const [formState, setFormState] = useState(initialState)
   const [todos, setTodos] = useState([])
+  const [sortStyle, setSortStyle] = useState("")
 
+  const inputRef = useRef(null)
 
   useEffect(() => {
     fetchTodos()
+    inputRef.current.focus()
   }, [])
 
   function setInput(key, value) {
@@ -53,9 +56,10 @@ const App = () => {
         onChange={event => setInput('name', event.target.value)}
         value={formState.name}
         placeholder="Name"
+        ref={inputRef}
       />
       <input
-        onChange={event => setInput('description', event.target.value)}
+        onChange={e => setInput('description', e.target.value)}
         value={formState.description}
         placeholder="Description"
       />
@@ -76,13 +80,30 @@ const App = () => {
         placeholderText="Pick a Date"
       />
       <button onClick={addTodo}>Create Todo</button>
+      <select name="sort" id="sort" className="statusDrop" onChange={event => {
+        setSortStyle(event.target.value)
+      }}>
+          <option value="" disabled selected>Sort Todos</option>
+          <option value="Due First">Due First</option>
+          <option value="Due Last">Due Last</option>
+          <option value="Not Started">Not Started</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Complete">Complete</option>
+          <option value="Transferred">Transferred</option>
+          <option value="Alphabetically">Alphabetically</option>
+        </select>
       {
-        todos.map((todo, index) => (
+        console.log(sortStyle)
+      }
+      {
+        todos?.map((todo, index) => (
           <div key={todo.id ? todo.id : index} className="todo">
-            <p className="todoName">{todo.name}</p>
-            <p className="todoDescription">{todo.description}</p>
-            <p className="todoDescription">{todo.status}</p>
-            <p className="todoDescription">{todo.dueDate}</p>
+            <div className="todoCard">
+              <p className="todoName">{todo.name}</p>
+              <p className="todoDescription">{todo.description}</p>
+              <p className="todoDescription">{todo.status}</p>
+              <p className="todoDescription">{todo.dueDate}</p>
+            </div>
           </div>
         ))
       }

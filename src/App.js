@@ -4,15 +4,19 @@ import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+// import Moment from 'moment'
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
-const initialState = { name: '', description: '', status: '', dueDate: '' }
+const initialState = { name: '', description: '', status: 'Not Started', dueDate: '' }
 
 const App = () => {
   const [formState, setFormState] = useState(initialState)
   const [todos, setTodos] = useState([])
+
 
   useEffect(() => {
     fetchTodos()
@@ -65,16 +69,30 @@ const App = () => {
         placeholder="Status"
       /> */}
       <select name="status" id="status" onChange={event => setInput('status', event.target.value)}>
-          <option selected value="notStarted">Not Started</option>
-          <option value="inProgress">In Progress</option>
-          <option value="complete">Complete</option>
-          <option value="transferred">Transferred</option>
+          <option defaultValue="Not Started" value="Not Started">Not Started</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Complete">Complete</option>
+          <option value="Transferred">Transferred</option>
         </select>
-      <input
+      {/* <input
         onChange={event => setInput('dueDate', event.target.value)}
         style={styles.input}
         value={formState.dueDate}
         placeholder="Due Date"
+      /> */}
+      <DatePicker 
+        dateFormat="MM-dd-yyyy"
+        selected={formState.dueDate ? new Date(formState.dueDate) : undefined} 
+        // selected={ Moment(date).toDate() } 
+        // onChange={date => setInput('dueDate', date)} 
+        minDate={new Date()}
+        onChange={date => {
+          let formatDate = date.toDateString()
+          // console.log(formatDate)
+          setInput('dueDate', formatDate)
+        }} 
+        // isClearable
+        placeholderText="Pick a Date"
       />
       <button style={styles.button} onClick={addTodo}>Create Todo</button>
       {

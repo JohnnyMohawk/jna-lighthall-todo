@@ -18,7 +18,7 @@ input,
 }
 
 .todoDescription { 
-  margin-bottom: 0px; 
+  margin-bottom: 10px; 
 }
 
 button { 
@@ -29,13 +29,27 @@ button {
   padding: 12px 0px 
 }
 
-.react-datepicker__input-container input {
+.dueDatePicker,
+.editDateDrop,
+.sortStyleDrop {
   min-width: 97%; 
   border: none;
   background-color: #ddd;
   margin-bottom: 10px;
   font-size: 18px;
   padding: 8px;
+}
+
+.statusDrop {
+  width: 100%;
+}
+
+.sortStyleDrop {
+  margin-top: 10px;
+}
+
+.editDateDrop {
+  background-color: #ddd;
 }
 
 .container { 

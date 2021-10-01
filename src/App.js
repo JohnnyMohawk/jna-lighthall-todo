@@ -92,6 +92,7 @@ const App = () => {
           <option value="Transferred">Transferred</option>
         </select>
       <DatePicker 
+        className="dueDatePicker"
         dateFormat="MM-dd-yyyy"
         selected={formState.dueDate ? new Date(formState.dueDate) : undefined} 
         minDate={new Date()}
@@ -105,7 +106,7 @@ const App = () => {
       {todos.length > 0 && (
         <>
         {
-        <select name="sort" id="sort" className="statusDrop" onChange={event => {
+        <select name="sort" id="sort" className="sortStyleDrop" onChange={event => {
           setSortStyle(event.target.value)
         }}>
             <option value="" disabled selected>Sort Todos</option>
@@ -130,6 +131,7 @@ const App = () => {
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
                 <DatePicker 
+                  className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
                   selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
                   minDate={new Date()}
@@ -140,7 +142,6 @@ const App = () => {
                 />
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
-                  console.log("TODODODODODOS", todos)
                 }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
@@ -162,6 +163,7 @@ const App = () => {
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
                 <DatePicker 
+                  className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
                   selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
                   minDate={new Date()}
@@ -172,7 +174,6 @@ const App = () => {
                 />
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
-                  console.log("TODODODODODOS", todos)
                 }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
@@ -194,6 +195,7 @@ const App = () => {
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
                 <DatePicker 
+                  className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
                   selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
                   minDate={new Date()}
@@ -204,7 +206,6 @@ const App = () => {
                 />
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
-                  console.log("TODODODODODOS", todos)
                 }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
@@ -226,6 +227,7 @@ const App = () => {
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
                 <DatePicker 
+                  className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
                   selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
                   minDate={new Date()}
@@ -236,7 +238,6 @@ const App = () => {
                 />
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
-                  console.log("TODODODODODOS", todos)
                 }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
@@ -258,6 +259,7 @@ const App = () => {
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
                 <DatePicker 
+                  className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
                   selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
                   minDate={new Date()}
@@ -268,7 +270,6 @@ const App = () => {
                 />
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
-                  console.log("TODODODODODOS", todos)
                 }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
@@ -290,6 +291,7 @@ const App = () => {
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
                 <DatePicker 
+                  className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
                   selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
                   minDate={new Date()}
@@ -300,7 +302,6 @@ const App = () => {
                 />
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
-                  console.log("TODODODODODOS", todos)
                 }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
@@ -322,6 +323,7 @@ const App = () => {
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
                 <DatePicker 
+                  className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
                   selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
                   minDate={new Date()}
@@ -332,7 +334,6 @@ const App = () => {
                 />
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
-                  console.log("TODODODODODOS", todos)
                 }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
@@ -354,6 +355,7 @@ const App = () => {
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
                 <DatePicker 
+                  className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
                   selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
                   minDate={new Date()}
@@ -364,7 +366,6 @@ const App = () => {
                 />
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
-                  console.log("TODODODODODOS", todos)
                 }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>

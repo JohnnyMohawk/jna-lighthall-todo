@@ -1,14 +1,22 @@
-
-.todo {
-  margin-bottom: 15px;
+body {
+  background: linear-gradient(
+    90deg,
+    rgba(48, 16, 255, 1) 0%,
+    rgba(100, 115, 255, 1) 100%
+  );
 }
 
 input,
-.statusDrop { 
+.statusDrop,
+.dueDatePicker,
+.editDateDrop,
+.sortStyleDrop { 
+  /* margin-left: 8px; */
   border: none; 
+  border-radius: 5px;
   background-color: #ddd; 
   margin-bottom: 10px; 
-  padding: 8px;
+  padding: 8px 0px 8px 0px;
   font-size: 18px;
 }
 
@@ -18,7 +26,11 @@ input,
 }
 
 .todoDescription { 
-  margin-bottom: 10px; 
+  /* border: 1px solid black; */
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: rgba(25, 27, 46, .5);
+  padding: 10px 7px;
 }
 
 button { 
@@ -26,39 +38,98 @@ button {
   color: white; 
   outline: none; 
   font-size: 18px; 
-  padding: 12px 0px 
+  padding: 12px 0px;
+  border-radius: 5px;
 }
 
-.dueDatePicker,
+.sortWrap {
+  /* width: 100%; */
+  /* margin-left: 20px; */
+}
+
+/* .dueDatePicker,
 .editDateDrop,
 .sortStyleDrop {
-  min-width: 97%; 
+  width: 100%; 
   border: none;
   background-color: #ddd;
   margin-bottom: 10px;
   font-size: 18px;
   padding: 8px;
-}
+} */
 
-.statusDrop {
+/* .sortStyleDrop {
+  width: 500px;
+} */
+
+.statusDrop,
+input.dueDatePicker,
+.editDateDrop {
   width: 100%;
 }
 
 .sortStyleDrop {
-  margin-top: 10px;
-}
-
-.editDateDrop {
-  background-color: #ddd;
-}
-
-.container { 
-  max-width: 500px; 
-  margin: 0 auto;
+  margin: 20px auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 20 
 }
 
+/* .editDateDrop {
+  background-color: #ddd;
+} */
 
+.todoFormContainer { 
+  background-color:rgba(100, 115, 255, 1);
+  max-width: 500px; 
+  margin: 20px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.ifTodosRender {
+  margin: 20px auto 0 auto;
+  max-width: 500px;
+}
+
+.sortWrap {
+  padding: 0 20px;
+}
+
+.responseWS {
+  margin: 0 20px;
+}
+
+.todo {
+  background-color:rgba(100, 115, 255, 1);
+  max-width: 500px; 
+  margin: 20px auto 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.signOutButton,
+.button {
+
+  width: 100px;
+  margin-top: 20px;
+
+  /* padding: 0px; */
+  /* color: black; */
+  /* border: 2px solid red; */
+}
+
+.sOPad {
+  /* width: 100%; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 55px;
+}

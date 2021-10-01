@@ -19,6 +19,8 @@ const App = () => {
 
   const inputRef = useRef(null)
 
+  const today = new Date().toDateString()
+
   useEffect(() => {
     fetchTodos()
     inputRef.current.focus()
@@ -71,54 +73,71 @@ const App = () => {
   }
 
   return (
-    <div className="container">
-      <AmplifySignOut />
-      <h2>JNA Lighthall Todos</h2>
-      <input
-        onChange={event => setInput('name', event.target.value)}
-        value={formState.name}
-        placeholder="Name"
-        ref={inputRef}
-      />
-      <input
-        onChange={e => setInput('description', e.target.value)}
-        value={formState.description}
-        placeholder="Description"
-      />
-      <select name="status" id="status" className="statusDrop" onChange={event => setInput('status', event.target.value)}>
-          <option defaultValue="Not Started" value="Not Started">Not Started</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Complete">Complete</option>
-          <option value="Transferred">Transferred</option>
-        </select>
-      <DatePicker 
-        className="dueDatePicker"
-        dateFormat="MM-dd-yyyy"
-        selected={formState.dueDate ? new Date(formState.dueDate) : undefined} 
-        minDate={new Date()}
-        onChange={date => {
-          let formatDate = date.toDateString()
-          setInput('dueDate', formatDate)
-        }} 
-        placeholderText="Pick a Date"
-      />
-      <button onClick={addTodo}>Create Todo</button>
+    <div>
+      <div className="sOPad">
+        <div className="signOutButton">
+          <AmplifySignOut />
+        </div>
+      </div>
+      <div className="responseWS">
+        <div className="todoFormContainer">
+          <h2>JNA Lighthall Todos</h2>
+          <input
+            onChange={event => setInput('name', event.target.value)}
+            value={formState.name}
+            placeholder=" Name"
+            ref={inputRef}
+          />
+          <input
+            onChange={e => setInput('description', e.target.value)}
+            value={formState.description}
+            placeholder=" Description"
+          />
+          <select name="status" id="status" className="statusDrop" onChange={event => setInput('status', event.target.value)}>
+              <option defaultValue="Not Started" value="Not Started">Not Started</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Complete">Complete</option>
+              <option value="Transferred">Transferred</option>
+            </select>
+          <DatePicker 
+            className="dueDatePicker"
+            dateFormat="MM-dd-yyyy"
+            selected={formState.dueDate ? new Date(formState.dueDate) : undefined} 
+            minDate={new Date()}
+            onChange={date => {
+              let formatDate = date.toDateString()
+              setInput('dueDate', formatDate)
+            }} 
+            placeholderText=" Pick a Date"
+          />
+          <button onClick={addTodo}>Create Todo</button>
+        </div>
+      
       {todos.length > 0 && (
         <>
         {
-        <select name="sort" id="sort" className="sortStyleDrop" onChange={event => {
-          setSortStyle(event.target.value)
-        }}>
-            <option value="" disabled selected>Sort Todos</option>
-            <option value="All Todos">All Todos (In Order of Addition)</option>
-            <option value="Due First">Due First</option>
-            <option value="Due Last">Due Last</option>
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Complete">Complete</option>
-            <option value="Transferred">Transferred</option>
-            <option value="Alphabetically">Alphabetically</option>
-        </select>
+          <div className="ifTodosRender">
+            <h2>{today}</h2>
+          </div>
+        }
+        {
+          <div className="sortWrap">
+            <div className="ifTodosRender">
+              <select name="sort" id="sort" className="sortStyleDrop" onChange={event => {
+                setSortStyle(event.target.value)
+              }}>
+                  <option value="" disabled selected>Sort Todos</option>
+                  <option value="All Todos">All Todos (In Order of Addition)</option>
+                  <option value="Due First">Due First</option>
+                  <option value="Due Last">Due Last</option>
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Transferred">Transferred</option>
+                  <option value="Alphabetically">Alphabetically</option>
+              </select>
+            </div>
+          </div>
         }
         </>
       )}
@@ -378,6 +397,8 @@ const App = () => {
         }
         </>
       )}
+      </div>
+      {console.log(today)}
     </div>
   )
 }

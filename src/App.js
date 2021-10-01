@@ -129,7 +129,6 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                {/* <p className="todoDescription">{todo.dueDate}</p> */}
                 <DatePicker 
                   dateFormat="MM-dd-yyyy"
                   selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
@@ -138,11 +137,8 @@ const App = () => {
                     let formatDate = date.toDateString()
                     editDueDate(todo.id, formatDate)
                   }} 
-                  // placeholderText="Pick a Date"
                 />
-                {/* <p className="todoDescription">{todo.status}</p> */}
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
-                  // setInput('status', event.target.value)
                   editStatus(todo.id, event.target.value)
                   console.log("TODODODODODOS", todos)
                 }}>
@@ -157,7 +153,6 @@ const App = () => {
         }
         </>
       )}
-      {console.log("formState", formState.status, "TODOS", todos)}
       {sortStyle === "Not Started" && (
         <>
         {
@@ -166,14 +161,24 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                {/* <p className="todoDescription">{todo.status}</p> */}
-                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                <DatePicker 
+                  dateFormat="MM-dd-yyyy"
+                  selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
+                  minDate={new Date()}
+                  onChange={date => {
+                    let formatDate = date.toDateString()
+                    editDueDate(todo.id, formatDate)
+                  }} 
+                />
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
+                  editStatus(todo.id, event.target.value)
+                  console.log("TODODODODODOS", todos)
+                }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                 </select>
-                <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
           ))
@@ -188,14 +193,24 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                {/* <p className="todoDescription">{todo.status}</p> */}
-                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                <DatePicker 
+                  dateFormat="MM-dd-yyyy"
+                  selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
+                  minDate={new Date()}
+                  onChange={date => {
+                    let formatDate = date.toDateString()
+                    editDueDate(todo.id, formatDate)
+                  }} 
+                />
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
+                  editStatus(todo.id, event.target.value)
+                  console.log("TODODODODODOS", todos)
+                }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                 </select>
-                <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
           ))
@@ -210,14 +225,24 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                {/* <p className="todoDescription">{todo.status}</p> */}
-                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                <DatePicker 
+                  dateFormat="MM-dd-yyyy"
+                  selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
+                  minDate={new Date()}
+                  onChange={date => {
+                    let formatDate = date.toDateString()
+                    editDueDate(todo.id, formatDate)
+                  }} 
+                />
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
+                  editStatus(todo.id, event.target.value)
+                  console.log("TODODODODODOS", todos)
+                }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                 </select>
-                <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
           ))
@@ -232,14 +257,24 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                {/* <p className="todoDescription">{todo.status}</p> */}
-                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                <DatePicker 
+                  dateFormat="MM-dd-yyyy"
+                  selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
+                  minDate={new Date()}
+                  onChange={date => {
+                    let formatDate = date.toDateString()
+                    editDueDate(todo.id, formatDate)
+                  }} 
+                />
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
+                  editStatus(todo.id, event.target.value)
+                  console.log("TODODODODODOS", todos)
+                }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                 </select>
-                <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
           ))
@@ -254,14 +289,24 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                {/* <p className="todoDescription">{todo.status}</p> */}
-                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                <DatePicker 
+                  dateFormat="MM-dd-yyyy"
+                  selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
+                  minDate={new Date()}
+                  onChange={date => {
+                    let formatDate = date.toDateString()
+                    editDueDate(todo.id, formatDate)
+                  }} 
+                />
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
+                  editStatus(todo.id, event.target.value)
+                  console.log("TODODODODODOS", todos)
+                }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                 </select>
-                <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
           ))
@@ -276,14 +321,24 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                {/* <p className="todoDescription">{todo.status}</p> */}
-                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                <DatePicker 
+                  dateFormat="MM-dd-yyyy"
+                  selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
+                  minDate={new Date()}
+                  onChange={date => {
+                    let formatDate = date.toDateString()
+                    editDueDate(todo.id, formatDate)
+                  }} 
+                />
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
+                  editStatus(todo.id, event.target.value)
+                  console.log("TODODODODODOS", todos)
+                }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                 </select>
-                <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
           ))
@@ -298,33 +353,30 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                {/* <p className="todoDescription">{todo.status}</p> */}
-                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                <DatePicker 
+                  dateFormat="MM-dd-yyyy"
+                  selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
+                  minDate={new Date()}
+                  onChange={date => {
+                    let formatDate = date.toDateString()
+                    editDueDate(todo.id, formatDate)
+                  }} 
+                />
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
+                  editStatus(todo.id, event.target.value)
+                  console.log("TODODODODODOS", todos)
+                }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                 </select>
-                <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
           ))
         }
         </>
       )}
-      {/* {console.log(todos)} */}
-      {/* {
-        todos.map((todo, index) => (
-          <div key={todo.id ? todo.id : index} className="todo">
-            <div className="todoCard">
-              <p className="todoName">{todo.name}</p>
-              <p className="todoDescription">{todo.description}</p>
-              <p className="todoDescription">{todo.status}</p>
-              <p className="todoDescription">{todo.dueDate}</p>
-            </div>
-          </div>
-        ))
-      } */}
     </div>
   )
 }

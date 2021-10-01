@@ -156,6 +156,23 @@ const App = () => {
         }
         </>
       )}
+      {sortStyle === "Alphabetically" && (
+        <>
+        {
+          todos.sort((a,b)=>a.name.localeCompare(b.name)).map((todo, index) => (
+            <div key={todo.id ? todo.id : index} className="todo">
+              <div className="todoCard">
+                <p className="todoName">{todo.name}</p>
+                <p className="todoDescription">{todo.description}</p>
+                <p className="todoDescription">{todo.status}</p>
+                <p className="todoDescription">{todo.dueDate}</p>
+              </div>
+            </div>
+          ))
+        }
+        </>
+      )}
+      {console.log(todos.sort((a,b)=>a.name.localeCompare(b.name)))}
       {/* {
         todos.map((todo, index) => (
           <div key={todo.id ? todo.id : index} className="todo">

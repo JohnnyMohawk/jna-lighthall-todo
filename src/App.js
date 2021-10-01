@@ -80,18 +80,47 @@ const App = () => {
         placeholderText="Pick a Date"
       />
       <button onClick={addTodo}>Create Todo</button>
-      <select name="sort" id="sort" className="statusDrop" onChange={event => {
-        setSortStyle(event.target.value)
-      }}>
-          <option value="" disabled selected>Sort Todos</option>
-          <option value="Due First">Due First</option>
-          <option value="Due Last">Due Last</option>
-          <option value="Not Started">Not Started</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Complete">Complete</option>
-          <option value="Transferred">Transferred</option>
-          <option value="Alphabetically">Alphabetically</option>
+      {todos.length > 0 && (
+        <>
+        {
+        <select name="sort" id="sort" className="statusDrop" onChange={event => {
+          setSortStyle(event.target.value)
+        }}>
+            <option value="" disabled selected>Sort Todos</option>
+            <option value="All Todos">All Todos (In Order of Addition)</option>
+            <option value="Due First">Due First</option>
+            <option value="Due Last">Due Last</option>
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Complete">Complete</option>
+            <option value="Transferred">Transferred</option>
+            <option value="Alphabetically">Alphabetically</option>
         </select>
+        }
+        </>
+      )}
+      {sortStyle === "All Todos" && (
+        <>
+        {
+          todos.map((todo, index) => (
+            <div key={todo.id ? todo.id : index} className="todo">
+              <div className="todoCard">
+                <p className="todoName">{todo.name}</p>
+                <p className="todoDescription">{todo.description}</p>
+                {/* <p className="todoDescription">{todo.status}</p> */}
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Transferred">Transferred</option>
+                </select>
+                <p className="todoDescription">{todo.dueDate}</p>
+              </div>
+            </div>
+          ))
+        }
+        </>
+      )}
       {sortStyle === "Not Started" && (
         <>
         {
@@ -172,7 +201,39 @@ const App = () => {
         }
         </>
       )}
-      {console.log(todos.sort((a,b)=>a.name.localeCompare(b.name)))}
+      {sortStyle === "Due First" && (
+        <>
+        {
+          todos.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).map((todo, index) => (
+            <div key={todo.id ? todo.id : index} className="todo">
+              <div className="todoCard">
+                <p className="todoName">{todo.name}</p>
+                <p className="todoDescription">{todo.description}</p>
+                <p className="todoDescription">{todo.status}</p>
+                <p className="todoDescription">{todo.dueDate}</p>
+              </div>
+            </div>
+          ))
+        }
+        </>
+      )}
+      {sortStyle === "Due Last" && (
+        <>
+        {
+          todos.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate)).map((todo, index) => (
+            <div key={todo.id ? todo.id : index} className="todo">
+              <div className="todoCard">
+                <p className="todoName">{todo.name}</p>
+                <p className="todoDescription">{todo.description}</p>
+                <p className="todoDescription">{todo.status}</p>
+                <p className="todoDescription">{todo.dueDate}</p>
+              </div>
+            </div>
+          ))
+        }
+        </>
+      )}
+      {console.log(todos)}
       {/* {
         todos.map((todo, index) => (
           <div key={todo.id ? todo.id : index} className="todo">

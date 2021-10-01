@@ -15,7 +15,7 @@ const initialState = { name: '', description: '', status: 'Not Started', dueDate
 const App = () => {
   const [formState, setFormState] = useState(initialState)
   const [todos, setTodos] = useState([])
-  const [sortStyle, setSortStyle] = useState("")
+  const [sortStyle, setSortStyle] = useState("Not Started")
 
   const inputRef = useRef(null)
 
@@ -108,7 +108,55 @@ const App = () => {
         }
         </>
       )}
-      {
+      {sortStyle === "In Progress" && (
+        <>
+        {
+          todos.filter(todos => (todos.status === "In Progress")).map((todo, index) => (
+            <div key={todo.id ? todo.id : index} className="todo">
+              <div className="todoCard">
+                <p className="todoName">{todo.name}</p>
+                <p className="todoDescription">{todo.description}</p>
+                <p className="todoDescription">{todo.status}</p>
+                <p className="todoDescription">{todo.dueDate}</p>
+              </div>
+            </div>
+          ))
+        }
+        </>
+      )}
+      {sortStyle === "Complete" && (
+        <>
+        {
+          todos.filter(todos => (todos.status === "Complete")).map((todo, index) => (
+            <div key={todo.id ? todo.id : index} className="todo">
+              <div className="todoCard">
+                <p className="todoName">{todo.name}</p>
+                <p className="todoDescription">{todo.description}</p>
+                <p className="todoDescription">{todo.status}</p>
+                <p className="todoDescription">{todo.dueDate}</p>
+              </div>
+            </div>
+          ))
+        }
+        </>
+      )}
+      {sortStyle === "Transferred" && (
+        <>
+        {
+          todos.filter(todos => (todos.status === "Transferred")).map((todo, index) => (
+            <div key={todo.id ? todo.id : index} className="todo">
+              <div className="todoCard">
+                <p className="todoName">{todo.name}</p>
+                <p className="todoDescription">{todo.description}</p>
+                <p className="todoDescription">{todo.status}</p>
+                <p className="todoDescription">{todo.dueDate}</p>
+              </div>
+            </div>
+          ))
+        }
+        </>
+      )}
+      {/* {
         todos.map((todo, index) => (
           <div key={todo.id ? todo.id : index} className="todo">
             <div className="todoCard">
@@ -119,7 +167,7 @@ const App = () => {
             </div>
           </div>
         ))
-      }
+      } */}
     </div>
   )
 }

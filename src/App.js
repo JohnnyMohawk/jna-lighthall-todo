@@ -32,14 +32,22 @@ const App = () => {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
         todo.status = status
-        console.log("AFTER", todo.status)
         setInput('status', status)
       }
       return todo;
     });
-    // console.log("UPDATED TODOS", updatedTodos)
     setTodos(updatedTodos);
-    console.log("TODOS!!!!", todos)
+  }
+
+  function editDueDate(id, dueDate) {
+    const updatedTodos = [...todos].map((todo) => {
+      if (todo.id === id) {
+        todo.dueDate = dueDate
+        setInput('dueDate', dueDate)
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
   }
 
   async function fetchTodos() {
@@ -121,7 +129,17 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                <p className="todoDescription">{todo.dueDate}</p>
+                {/* <p className="todoDescription">{todo.dueDate}</p> */}
+                <DatePicker 
+                  dateFormat="MM-dd-yyyy"
+                  selected={todo.dueDate ? new Date(todo.dueDate) : undefined} 
+                  minDate={new Date()}
+                  onChange={date => {
+                    let formatDate = date.toDateString()
+                    editDueDate(todo.id, formatDate)
+                  }} 
+                  // placeholderText="Pick a Date"
+                />
                 {/* <p className="todoDescription">{todo.status}</p> */}
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   // setInput('status', event.target.value)

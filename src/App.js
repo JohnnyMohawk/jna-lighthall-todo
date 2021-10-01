@@ -92,11 +92,24 @@ const App = () => {
           <option value="Transferred">Transferred</option>
           <option value="Alphabetically">Alphabetically</option>
         </select>
+      {sortStyle === "Not Started" && (
+        <>
+        {
+          todos.filter(todos => (todos.status === "Not Started")).map((todo, index) => (
+            <div key={todo.id ? todo.id : index} className="todo">
+              <div className="todoCard">
+                <p className="todoName">{todo.name}</p>
+                <p className="todoDescription">{todo.description}</p>
+                <p className="todoDescription">{todo.status}</p>
+                <p className="todoDescription">{todo.dueDate}</p>
+              </div>
+            </div>
+          ))
+        }
+        </>
+      )}
       {
-        console.log(sortStyle)
-      }
-      {
-        todos?.map((todo, index) => (
+        todos.map((todo, index) => (
           <div key={todo.id ? todo.id : index} className="todo">
             <div className="todoCard">
               <p className="todoName">{todo.name}</p>

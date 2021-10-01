@@ -15,7 +15,7 @@ const initialState = { name: '', description: '', status: 'Not Started', dueDate
 const App = () => {
   const [formState, setFormState] = useState(initialState)
   const [todos, setTodos] = useState([])
-  const [sortStyle, setSortStyle] = useState("Not Started")
+  const [sortStyle, setSortStyle] = useState("All Todos")
 
   const inputRef = useRef(null)
 
@@ -26,6 +26,20 @@ const App = () => {
 
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value })
+  }
+
+  function editStatus(id, status) {
+    const updatedTodos = [...todos].map((todo) => {
+      if (todo.id === id) {
+        todo.status = status
+        console.log("AFTER", todo.status)
+        setInput('status', status)
+      }
+      return todo;
+    });
+    // console.log("UPDATED TODOS", updatedTodos)
+    setTodos(updatedTodos);
+    console.log("TODOS!!!!", todos)
   }
 
   async function fetchTodos() {
@@ -107,20 +121,25 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
+                <p className="todoDescription">{todo.dueDate}</p>
                 {/* <p className="todoDescription">{todo.status}</p> */}
-                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
+                  // setInput('status', event.target.value)
+                  editStatus(todo.id, event.target.value)
+                  console.log("TODODODODODOS", todos)
+                }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                 </select>
-                <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
           ))
         }
         </>
       )}
+      {console.log("formState", formState.status, "TODOS", todos)}
       {sortStyle === "Not Started" && (
         <>
         {
@@ -129,7 +148,13 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                <p className="todoDescription">{todo.status}</p>
+                {/* <p className="todoDescription">{todo.status}</p> */}
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Transferred">Transferred</option>
+                </select>
                 <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
@@ -145,7 +170,13 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                <p className="todoDescription">{todo.status}</p>
+                {/* <p className="todoDescription">{todo.status}</p> */}
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Transferred">Transferred</option>
+                </select>
                 <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
@@ -161,7 +192,13 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                <p className="todoDescription">{todo.status}</p>
+                {/* <p className="todoDescription">{todo.status}</p> */}
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Transferred">Transferred</option>
+                </select>
                 <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
@@ -177,7 +214,13 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                <p className="todoDescription">{todo.status}</p>
+                {/* <p className="todoDescription">{todo.status}</p> */}
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Transferred">Transferred</option>
+                </select>
                 <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
@@ -193,7 +236,13 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                <p className="todoDescription">{todo.status}</p>
+                {/* <p className="todoDescription">{todo.status}</p> */}
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Transferred">Transferred</option>
+                </select>
                 <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
@@ -209,7 +258,13 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                <p className="todoDescription">{todo.status}</p>
+                {/* <p className="todoDescription">{todo.status}</p> */}
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Transferred">Transferred</option>
+                </select>
                 <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
@@ -225,7 +280,13 @@ const App = () => {
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="todoDescription">{todo.description}</p>
-                <p className="todoDescription">{todo.status}</p>
+                {/* <p className="todoDescription">{todo.status}</p> */}
+                <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => setInput('status', event.target.value)}>
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Transferred">Transferred</option>
+                </select>
                 <p className="todoDescription">{todo.dueDate}</p>
               </div>
             </div>
@@ -233,7 +294,7 @@ const App = () => {
         }
         </>
       )}
-      {console.log(todos)}
+      {/* {console.log(todos)} */}
       {/* {
         todos.map((todo, index) => (
           <div key={todo.id ? todo.id : index} className="todo">

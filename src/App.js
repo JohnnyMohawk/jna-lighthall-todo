@@ -7,6 +7,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import './App.css'
 
+
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
@@ -62,7 +63,7 @@ const App = () => {
 
   async function addTodo() {
     try {
-      if (!formState.name || !formState.description) return
+      if (!formState.name || !formState.description || !formState.dueDate || !formState.status) return
       const todo = { ...formState }
       setTodos([...todos, todo])
       setFormState(initialState)
@@ -81,11 +82,20 @@ const App = () => {
       </div>
       <div className="responseWS">
         <div className="todoFormContainer">
-          <h2>JNA Lighthall Todos</h2>
+          <div className="logoDiv">
+            <a href="https://lighthall.notion.site/Working-at-Lighthall-069ea38d624547b78361a6a0bf162b4f?p=8ad90c5cefb8429b9a11f3b1dff29709" target="_blank">
+              <img src="lighthall-logo.png" alt="lighthall-logo" className="lighthallLogo"></img>
+            </a>
+            <a href="https://jna-developer.netlify.app/" target="_blank">
+              <img src="JohnLogoNoBG.png" alt="john-logo" className="johnLogo"></img>
+            </a>
+            <img src="todo-logo.png" alt="todo-logo" className="lighthallLogo"></img>
+          </div>
+          <h2>JNA Lighthall To Do App</h2>
           <input
             onChange={event => setInput('name', event.target.value)}
             value={formState.name}
-            placeholder=" Name"
+            placeholder=" To Do"
             ref={inputRef}
           />
           <input
@@ -94,11 +104,11 @@ const App = () => {
             placeholder=" Description"
           />
           <select name="status" id="status" className="statusDrop" onChange={event => setInput('status', event.target.value)}>
-              <option defaultValue="Not Started" value="Not Started">Not Started</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Complete">Complete</option>
-              <option value="Transferred">Transferred</option>
-            </select>
+            <option defaultValue="Not Started" value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Complete">Complete</option>
+            <option value="Transferred">Transferred</option>
+          </select>
           <DatePicker 
             className="dueDatePicker"
             dateFormat="MM-dd-yyyy"
@@ -108,16 +118,16 @@ const App = () => {
               let formatDate = date.toDateString()
               setInput('dueDate', formatDate)
             }} 
-            placeholderText=" Pick a Date"
+            placeholderText=" Set Due Date"
           />
-          <button onClick={addTodo}>Create Todo</button>
+          <button onClick={addTodo}>CREATE TODO</button>
         </div>
       
       {todos.length > 0 && (
         <>
         {
           <div className="ifTodosRender">
-            <h2>{today}</h2>
+            <h2 className="date">{today}</h2>
           </div>
         }
         {
@@ -148,7 +158,9 @@ const App = () => {
             <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
+                <p className="labels">Todo Description:</p>
                 <p className="todoDescription">{todo.description}</p>
+                <p className="labels">Due Date:</p>
                 <DatePicker 
                   className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
@@ -159,6 +171,7 @@ const App = () => {
                     editDueDate(todo.id, formatDate)
                   }} 
                 />
+                <p className="labels">Status:</p>
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
                 }}>
@@ -180,7 +193,9 @@ const App = () => {
             <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
+                <p className="labels">Todo Description:</p>
                 <p className="todoDescription">{todo.description}</p>
+                <p className="labels">Due Date:</p>
                 <DatePicker 
                   className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
@@ -191,6 +206,7 @@ const App = () => {
                     editDueDate(todo.id, formatDate)
                   }} 
                 />
+                <p className="labels">Status:</p>
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
                 }}>
@@ -212,7 +228,9 @@ const App = () => {
             <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
+                <p className="labels">Todo Description:</p>
                 <p className="todoDescription">{todo.description}</p>
+                <p className="labels">Due Date:</p>
                 <DatePicker 
                   className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
@@ -223,6 +241,7 @@ const App = () => {
                     editDueDate(todo.id, formatDate)
                   }} 
                 />
+                <p className="labels">Status:</p>
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
                 }}>
@@ -244,7 +263,9 @@ const App = () => {
             <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
+                <p className="labels">Todo Description:</p>
                 <p className="todoDescription">{todo.description}</p>
+                <p className="labels">Due Date:</p>
                 <DatePicker 
                   className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
@@ -255,6 +276,7 @@ const App = () => {
                     editDueDate(todo.id, formatDate)
                   }} 
                 />
+                <p className="labels">Status:</p>
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
                 }}>
@@ -276,7 +298,9 @@ const App = () => {
             <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
+                <p className="labels">Todo Description:</p>
                 <p className="todoDescription">{todo.description}</p>
+                <p className="labels">Due Date:</p>
                 <DatePicker 
                   className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
@@ -287,6 +311,7 @@ const App = () => {
                     editDueDate(todo.id, formatDate)
                   }} 
                 />
+                <p className="labels">Status:</p>
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
                 }}>
@@ -308,7 +333,9 @@ const App = () => {
             <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
+                <p className="labels">Todo Description:</p>
                 <p className="todoDescription">{todo.description}</p>
+                <p className="labels">Due Date:</p>
                 <DatePicker 
                   className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
@@ -319,6 +346,7 @@ const App = () => {
                     editDueDate(todo.id, formatDate)
                   }} 
                 />
+                <p className="labels">Status:</p>
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
                 }}>
@@ -340,7 +368,9 @@ const App = () => {
             <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
+                <p className="labels">Todo Description:</p>
                 <p className="todoDescription">{todo.description}</p>
+                <p className="labels">Due Date:</p>
                 <DatePicker 
                   className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
@@ -351,6 +381,7 @@ const App = () => {
                     editDueDate(todo.id, formatDate)
                   }} 
                 />
+                <p className="labels">Status:</p>
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
                 }}>
@@ -372,7 +403,9 @@ const App = () => {
             <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
+                <p className="labels">Todo Description:</p>
                 <p className="todoDescription">{todo.description}</p>
+                <p className="labels">Due Date:</p>
                 <DatePicker 
                   className="editDateDrop"
                   dateFormat="MM-dd-yyyy"
@@ -383,6 +416,7 @@ const App = () => {
                     editDueDate(todo.id, formatDate)
                   }} 
                 />
+                <p className="labels">Status:</p>
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
                   editStatus(todo.id, event.target.value)
                 }}>

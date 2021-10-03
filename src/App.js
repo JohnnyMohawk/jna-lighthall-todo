@@ -18,7 +18,7 @@ const App = () => {
   const [formState, setFormState] = useState(initialState)
   const [todos, setTodos] = useState([])
   const [sortStyle, setSortStyle] = useState("All Todos")
-  const [showDiv, setShowDiv] = useState(false)
+  const [showDiv, setShowDiv] = useState(todos.length ? true : false)
 
   const inputRef = useRef(null)
   const today = new Date().toDateString()
@@ -43,6 +43,10 @@ const App = () => {
     fetchTodos()
     inputRef.current.focus()
   }, [])
+
+  useEffect(() => {
+    setShowDiv(todos.length ? true : false)
+  }, [todos])
 
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value })
@@ -101,10 +105,10 @@ const App = () => {
       <div className="responseWS">
         <div className="todoFormContainer">
           <div className="logoDiv">
-            <a href="https://lighthall.notion.site/Working-at-Lighthall-069ea38d624547b78361a6a0bf162b4f?p=8ad90c5cefb8429b9a11f3b1dff29709" target="_blank">
+            <a href="https://lighthall.notion.site/Working-at-Lighthall-069ea38d624547b78361a6a0bf162b4f?p=8ad90c5cefb8429b9a11f3b1dff29709" target="_blank" rel="noreferrer">
               <img src="lighthall-logo.png" alt="lighthall-logo" className="lighthallLogo"></img>
             </a>
-            <a href="https://jna-developer.netlify.app/" target="_blank">
+            <a href="https://jna-developer.netlify.app/" target="_blank" rel="noreferrer">
               <img src="JohnLogoNoBG.png" alt="john-logo" className="johnLogo"></img>
             </a>
             <img src="todo-logo.png" alt="todo-logo" className="lighthallLogo"></img>
@@ -142,40 +146,6 @@ const App = () => {
           />
           <button onClick={addTodo}>CREATE TODO</button>
         </div>
-      {/* {todos.length > 0 && (
-        <>
-        {
-          <div className="ifTodosRender">
-            <h2 className="date">{today}</h2>
-          </div>
-        }
-        {
-          <div className="sortWrap">
-            <div className="ifTodosRender">
-              <select name="sort" id="sort" className="sortStyleDrop" onChange={event => {
-                setSortStyle(event.target.value)
-              }}>
-                  <option value="" disabled selected>Sort Todos (Current: All Todos)</option>
-                  <option value="All Todos">All Todos (In Order of Addition)</option>
-                  <option value="Due First">Due First</option>
-                  <option value="Due Last">Due Last</option>
-                  <option value="Not Started">Not Started</option>
-                  <option value="In Progress">In Progress</option>
-                  <option value="Complete">Complete</option>
-                  <option value="Transferred">Transferred</option>
-                  <option value="Alphabetically">Alphabetically</option>
-              </select>
-            </div>
-          </div>
-        }
-        </>
-      )} */}
-      {/* <button onClick={() => setShowDiv(val => !val)}>Toggle</button> */}
-      {/* {todos.length > 0 && (
-        <>
-        {setShowDiv(true)}
-        </>
-      )} */}
         <animated.div style={fadeStyles}>
         {
           <div className="ifTodosRender">
@@ -202,7 +172,6 @@ const App = () => {
           </div>
         }
         </animated.div>
-
       {sortStyle === "All Todos" && (
         <>
         <ul>

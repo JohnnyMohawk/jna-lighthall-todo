@@ -38,11 +38,13 @@ input,
   cursor: pointer;
 }
 
-.input-text-form {
+.input-text-form,
+.input-text-form1 {
   background-color: #ddd; 
+  
 }
 
-.input-text {
+.input-text-form {
   padding: 8px 0px 8px 5px;
 }
 
@@ -159,6 +161,10 @@ input.dueDatePicker,
 
 .responseWS {
   margin: 0 20px;
+}
+
+ul {
+  padding: 0;
 }
 
 .todo {

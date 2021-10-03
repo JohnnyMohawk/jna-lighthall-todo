@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
+import { animated, useTransition, useSpring, config } from '@react-spring/web'
 import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -17,10 +18,26 @@ const App = () => {
   const [formState, setFormState] = useState(initialState)
   const [todos, setTodos] = useState([])
   const [sortStyle, setSortStyle] = useState("All Todos")
+  const [showDiv, setShowDiv] = useState(false)
 
   const inputRef = useRef(null)
-
   const today = new Date().toDateString()
+
+  const listTransitions = useTransition(todos, {
+    config: config.gentle,
+    from: { opacity: 0, transform: "translate3d(-25%, 0px, 0px)" },
+    enter: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },
+    leave: { opacity: 0, height: 0, transform: "translate3d(25%, 0px, 0px)" },
+    keys: todos.map((todo, index) => index)
+  });
+
+  const fadeStyles = useSpring({
+    config: { ...config.stiff },
+    from: { opacity: 0 },
+    to: {
+      opacity: showDiv ? 1 : 0
+    }
+  });
 
   useEffect(() => {
     fetchTodos()
@@ -67,6 +84,7 @@ const App = () => {
       const todo = { ...formState }
       setTodos([...todos, todo])
       setFormState(initialState)
+      setShowDiv(true)
       await API.graphql(graphqlOperation(createTodo, {input: todo}))
     } catch (err) {
       console.log('error creating todo:', err)
@@ -112,7 +130,7 @@ const App = () => {
             <option value="Transferred">Transferred</option>
           </select>
           <DatePicker 
-            className="dueDatePicker input-text-form"
+            className="dueDatePicker input-text-form1"
             dateFormat="MM-dd-yyyy"
             selected={formState.dueDate ? new Date(formState.dueDate) : undefined} 
             minDate={new Date()}
@@ -124,8 +142,7 @@ const App = () => {
           />
           <button onClick={addTodo}>CREATE TODO</button>
         </div>
-      
-      {todos.length > 0 && (
+      {/* {todos.length > 0 && (
         <>
         {
           <div className="ifTodosRender">
@@ -138,7 +155,7 @@ const App = () => {
               <select name="sort" id="sort" className="sortStyleDrop" onChange={event => {
                 setSortStyle(event.target.value)
               }}>
-                  <option value="" disabled selected>Sort Todos (Currently Displaying All Todos)</option>
+                  <option value="" disabled selected>Sort Todos (Current: All Todos)</option>
                   <option value="All Todos">All Todos (In Order of Addition)</option>
                   <option value="Due First">Due First</option>
                   <option value="Due Last">Due Last</option>
@@ -152,12 +169,46 @@ const App = () => {
           </div>
         }
         </>
-      )}
+      )} */}
+      {/* <button onClick={() => setShowDiv(val => !val)}>Toggle</button> */}
+      {/* {todos.length > 0 && (
+        <>
+        {setShowDiv(true)}
+        </>
+      )} */}
+        <animated.div style={fadeStyles}>
+        {
+          <div className="ifTodosRender">
+            <h2 className="date">{today}</h2>
+          </div>
+        }
+        {
+          <div className="sortWrap">
+            <div className="ifTodosRender">
+              <select name="sort" id="sort" className="sortStyleDrop" onChange={event => {
+                setSortStyle(event.target.value)
+              }}>
+                  <option value="" disabled selected>Sort Todos (Current: All Todos)</option>
+                  <option value="All Todos">All Todos (In Order of Addition)</option>
+                  <option value="Due First">Due First</option>
+                  <option value="Due Last">Due Last</option>
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Transferred">Transferred</option>
+                  <option value="Alphabetically">Alphabetically</option>
+              </select>
+            </div>
+          </div>
+        }
+        </animated.div>
+
       {sortStyle === "All Todos" && (
         <>
+        <ul>
         {
-          todos.map((todo, index) => (
-            <div key={todo.id ? todo.id : index} className="todo">
+          listTransitions((styles, todo, index) => (
+            <animated.div style={styles} key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="labels">Todo Description:</p>
@@ -183,16 +234,18 @@ const App = () => {
                   <option value="Transferred">Transferred</option>
                 </select>
               </div>
-            </div>
+            </animated.div>
           ))
         }
+        </ul>
         </>
       )}
       {sortStyle === "Not Started" && (
         <>
+        <ul>
         {
-          todos.filter(todos => (todos.status === "Not Started")).map((todo, index) => (
-            <div key={todo.id ? todo.id : index} className="todo">
+          listTransitions((styles, todo, index) => (
+            <animated.div style={styles} key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="labels">Todo Description:</p>
@@ -218,16 +271,18 @@ const App = () => {
                   <option value="Transferred">Transferred</option>
                 </select>
               </div>
-            </div>
+            </animated.div>
           ))
         }
+        </ul>
         </>
       )}
       {sortStyle === "In Progress" && (
         <>
+        <ul>
         {
-          todos.filter(todos => (todos.status === "In Progress")).map((todo, index) => (
-            <div key={todo.id ? todo.id : index} className="todo">
+          listTransitions((styles, todo, index) => (
+            <animated.div style={styles} key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="labels">Todo Description:</p>
@@ -253,16 +308,18 @@ const App = () => {
                   <option value="Transferred">Transferred</option>
                 </select>
               </div>
-            </div>
+            </animated.div>
           ))
         }
+        </ul>
         </>
       )}
       {sortStyle === "Complete" && (
         <>
+        <ul>
         {
-          todos.filter(todos => (todos.status === "Complete")).map((todo, index) => (
-            <div key={todo.id ? todo.id : index} className="todo">
+          listTransitions((styles, todo, index) => (
+            <animated.div style={styles} key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="labels">Todo Description:</p>
@@ -288,16 +345,18 @@ const App = () => {
                   <option value="Transferred">Transferred</option>
                 </select>
               </div>
-            </div>
+            </animated.div>
           ))
         }
+        </ul>
         </>
       )}
       {sortStyle === "Transferred" && (
         <>
+        <ul>
         {
-          todos.filter(todos => (todos.status === "Transferred")).map((todo, index) => (
-            <div key={todo.id ? todo.id : index} className="todo">
+          listTransitions((styles, todo, index) => (
+            <animated.div style={styles} key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="labels">Todo Description:</p>
@@ -323,16 +382,18 @@ const App = () => {
                   <option value="Transferred">Transferred</option>
                 </select>
               </div>
-            </div>
+            </animated.div>
           ))
         }
+        </ul>
         </>
       )}
       {sortStyle === "Alphabetically" && (
         <>
+        <ul>
         {
-          todos.sort((a,b)=>a.name.localeCompare(b.name)).map((todo, index) => (
-            <div key={todo.id ? todo.id : index} className="todo">
+          listTransitions((styles, todo, index) => (
+            <animated.div style={styles} key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="labels">Todo Description:</p>
@@ -358,16 +419,18 @@ const App = () => {
                   <option value="Transferred">Transferred</option>
                 </select>
               </div>
-            </div>
+            </animated.div>
           ))
         }
+        </ul>
         </>
       )}
       {sortStyle === "Due First" && (
         <>
+        <ul>
         {
-          todos.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).map((todo, index) => (
-            <div key={todo.id ? todo.id : index} className="todo">
+          listTransitions((styles, todo, index) => (
+            <animated.div style={styles} key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="labels">Todo Description:</p>
@@ -393,16 +456,18 @@ const App = () => {
                   <option value="Transferred">Transferred</option>
                 </select>
               </div>
-            </div>
+            </animated.div>
           ))
         }
+        </ul>
         </>
       )}
       {sortStyle === "Due Last" && (
         <>
+        <ul>
         {
-          todos.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate)).map((todo, index) => (
-            <div key={todo.id ? todo.id : index} className="todo">
+          listTransitions((styles, todo, index) => (
+            <animated.div style={styles} key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="labels">Todo Description:</p>
@@ -428,9 +493,10 @@ const App = () => {
                   <option value="Transferred">Transferred</option>
                 </select>
               </div>
-            </div>
+            </animated.div>
           ))
         }
+        </ul>
         </>
       )}
       </div>

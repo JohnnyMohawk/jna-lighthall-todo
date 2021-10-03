@@ -93,24 +93,26 @@ const App = () => {
           </div>
           <h2>JNA Lighthall To Do App</h2>
           <input
+            className="input-text-form"
             onChange={event => setInput('name', event.target.value)}
             value={formState.name}
             placeholder=" To Do"
             ref={inputRef}
           />
           <input
+            className="input-text-form"
             onChange={e => setInput('description', e.target.value)}
             value={formState.description}
             placeholder=" Description"
           />
-          <select name="status" id="status" className="statusDrop" onChange={event => setInput('status', event.target.value)}>
+          <select name="status" id="status" className="statusDrop input-text-form" onChange={event => setInput('status', event.target.value)}>
             <option defaultValue="Not Started" value="Not Started">Not Started</option>
             <option value="In Progress">In Progress</option>
             <option value="Complete">Complete</option>
             <option value="Transferred">Transferred</option>
           </select>
           <DatePicker 
-            className="dueDatePicker"
+            className="dueDatePicker input-text-form"
             dateFormat="MM-dd-yyyy"
             selected={formState.dueDate ? new Date(formState.dueDate) : undefined} 
             minDate={new Date()}
@@ -136,7 +138,7 @@ const App = () => {
               <select name="sort" id="sort" className="sortStyleDrop" onChange={event => {
                 setSortStyle(event.target.value)
               }}>
-                  <option value="" disabled selected>Sort Todos</option>
+                  <option value="" disabled selected>Sort Todos (Currently Displaying All Todos)</option>
                   <option value="All Todos">All Todos (In Order of Addition)</option>
                   <option value="Due First">Due First</option>
                   <option value="Due Last">Due Last</option>

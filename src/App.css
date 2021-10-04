@@ -13,72 +13,46 @@ body {
   font-family: 'Josefin Sans', sans-serif;
 }
 
-h2 {
-  color: white;
+/* ----- Signout Button CSS ----- */
+
+.signOutButton,
+.button {
+  width: 100px;
+  margin-top: 20px;
 }
 
-.date {
-  text-shadow:
-  10px 10px 4px rgba(90, 90, 90, 0.3),
-  10px 10px 4px rgba(90, 90, 90, 0.3);
-  color: rgba(5, 8, 36, 1);
+.signOutButton:hover,
+button:hover {
+  transform: translateY(2px);
 }
 
-input,
-.statusDrop,
-.dueDatePicker,
-.editDateDrop,
-.sortStyleDrop { 
-  border: none; 
+.sOPad {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 55px;
+}
+
+/* ----- To Do Form ----- */
+
+.todoFormContainer { 
+  background: linear-gradient(
+    180deg,
+    rgba(5, 8, 36, 1) 0%,
+    rgba(28, 12, 91, 1) 100%
+  );
+  max-width: 500px; 
+  margin: 20px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
   border-radius: 5px;
-  background-color: rgb(221, 221, 221, 0.7); 
-  margin-bottom: 10px; 
-  padding: 8px 0px 8px 0px;
-  font-size: 18px;
-  cursor: pointer;
+  box-shadow: 10px 10px 12px -1px rgba(90, 90, 90, 0.63);
 }
 
-.input-text-form,
-.input-text-form1 {
-  background-color: #ddd; 
-}
-
-.just-text {
-  cursor: text;
-}
-
-.input-text-form {
-  padding: 8px 0px 8px 5px;
-}
-
-.sortStyleDrop {
-  border: 1px solid rgba(5, 8, 36, 1);
-}
-
-.todoName { 
-  font-size: 24px; 
-  font-weight: bold;
-  text-decoration: underline;
-  margin-bottom: 10px;
-  color: white;
-}
-
-.todoDescription { 
-  border-radius: 5px;
-  margin-bottom: 10px;
-  background-color: rgb(221, 221, 221, 0.7);
-  padding: 10px 7px 7px 7px;
-  font-size: 20px;
-}
-
-button { 
-  background-color: #ff9900; 
-  color: white; 
-  outline: none; 
-  font-size: 18px; 
-  padding: 12px 0px;
-  border-radius: 5px;
-  cursor: pointer;
+.responseWS {
+  margin: 0 20px;
 }
 
 .logoDiv{
@@ -119,19 +93,54 @@ button {
   }
 }
 
-p {
-  margin: 3px;
-}
-
-.labels {
-  margin: 3px;
+h2 {
   color: white;
 }
 
+input,
 .statusDrop,
-input.dueDatePicker,
-.editDateDrop {
-  width: 100%;
+.dueDatePicker,
+.editDateDrop,
+.sortStyleDrop { 
+  border: none; 
+  border-radius: 5px;
+  background-color: rgb(221, 221, 221, 0.7); 
+  margin-bottom: 10px; 
+  padding: 8px 0px 8px 0px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.input-text-form,
+.input-text-form1 {
+  background-color: #ddd; 
+}
+
+.just-text {
+  cursor: text;
+}
+
+.input-text-form {
+  padding: 8px 0px 8px 5px;
+}
+
+button { 
+  background-color: #ff9900; 
+  color: white; 
+  outline: none; 
+  font-size: 18px; 
+  padding: 12px 0px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ----- To Do Sort ----- */
+
+.date {
+  text-shadow:
+  10px 10px 4px rgba(90, 90, 90, 0.3),
+  10px 10px 4px rgba(90, 90, 90, 0.3);
+  color: rgba(5, 8, 36, 1);
 }
 
 .sortStyleDrop {
@@ -140,22 +149,7 @@ input.dueDatePicker,
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 10px 10px 12px -1px rgba(90, 90, 90, 0.63);
-}
-
-.todoFormContainer { 
-  background: linear-gradient(
-    180deg,
-    rgba(5, 8, 36, 1) 0%,
-    rgba(28, 12, 91, 1) 100%
-  );
-  max-width: 500px; 
-  margin: 20px auto 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-  border-radius: 5px;
+  border: 1px solid rgba(5, 8, 36, 1);
   box-shadow: 10px 10px 12px -1px rgba(90, 90, 90, 0.63);
 }
 
@@ -168,13 +162,7 @@ input.dueDatePicker,
   padding: 0 20px;
 }
 
-.responseWS {
-  margin: 0 20px;
-}
-
-ul {
-  padding: 0;
-}
+/* ----- To Do Cards ----- */
 
 .todo {
   background: linear-gradient(
@@ -216,23 +204,38 @@ ul {
   );
 }
 
-.signOutButton,
-.button {
-  width: 100px;
-  margin-top: 20px;
+.todoName { 
+  font-size: 24px; 
+  font-weight: bold;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  color: white;
 }
 
-.signOutButton:hover,
-button:hover {
-  transform: translateY(2px);
+.todoDescription { 
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: rgb(221, 221, 221, 0.7);
+  padding: 10px 7px 7px 7px;
+  font-size: 20px;
 }
 
-.sOPad {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-right: 55px;
+.labels {
+  margin: 3px;
+  color: white;
 }
+
+p {
+  margin: 3px;
+}
+
+.statusDrop,
+input.dueDatePicker,
+.editDateDrop {
+  width: 100%;
+}
+
+/* ----- Responsive CSS ----- */
 
 @media (max-width: 500px) {
   .lighthallLogo {

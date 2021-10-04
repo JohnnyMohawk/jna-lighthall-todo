@@ -40,7 +40,6 @@ const App = () => {
     }
   });
   
-
   useEffect(() => {
     fetchTodos()
     setShowForm(true)
@@ -66,7 +65,6 @@ const App = () => {
     });
     setTodos(updatedTodos);
   }
-
   function editDueDate(id, dueDate) {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
@@ -107,30 +105,10 @@ const App = () => {
       setSortedTodoArr(todos.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate)))
     }else if(event === "Alphabetically"){
       setSortedTodoArr(todos.sort((a,b)=>a.name.localeCompare(b.name)))
-    }else if(sortStyle === "All Todos"){
+    }else if(event === "All Todos"){
       setSortedTodoArr(todos)
     }
   }
-
-  // function sortTodos() {
-  //   let sortedTodos
-  //   if (sortStyle === "Not Started" || sortStyle === "In Progress" || sortStyle === "Complete" || sortStyle === "Transferred") {
-  //     sortedTodos = todos.filter(todos => (todos.status === sortStyle))
-  //     setSortedTodoArr(sortedTodos)
-  //   }else if(sortStyle === "Due First"){
-  //     sortedTodos = todos.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
-  //     setSortedTodoArr(sortedTodos)
-  //   }else if(sortStyle === "Due Last"){
-  //     sortedTodos = todos.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate))
-  //     setSortedTodoArr(sortedTodos)
-  //   }else if(sortStyle === "Alphabetically"){
-  //     sortedTodos = todos.sort((a,b)=>a.name.localeCompare(b.name))
-  //     setSortedTodoArr(sortedTodos)
-  //   }else if(sortStyle === "All Todos"){
-  //     sortedTodos = todos
-  //     setSortedTodoArr(sortedTodos)
-  //   }
-  // }
 
   return (
     <div>
@@ -199,14 +177,14 @@ const App = () => {
                 sortTodos(event.target.value)
               }}>
                   <option value="" disabled selected>Sort Todos (Currently Displaying: Due First)</option>
-                  <option value="All Todos">All Todos (In Order of Addition)</option>
+                  <option value="All Todos">All Todos</option>
                   <option value="Due First">Due First</option>
+                  <option value="Due Last">Due Last</option>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                   <option value="Alphabetically">Alphabetically</option>
-                  <option value="Due Last">Due Last</option>
               </select>
             </div>
           </div>
@@ -251,4 +229,3 @@ const App = () => {
 }
 
 export default withAuthenticator(App)
-

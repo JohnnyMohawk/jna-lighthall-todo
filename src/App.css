@@ -41,7 +41,10 @@ input,
 .input-text-form,
 .input-text-form1 {
   background-color: #ddd; 
-  
+}
+
+.just-text {
+  cursor: text;
 }
 
 .input-text-form {
@@ -85,6 +88,10 @@ button {
 .lighthallLogo {
   max-height: 120px;
   border-radius: 10px;
+}
+
+.lighthallLogo:hover {
+  transform: translateY(4px);
 }
 
 .johnLogo {
@@ -170,8 +177,8 @@ ul {
 .todo {
   background: linear-gradient(
     180deg,
-    rgba(28, 12, 91, 1) 0%,
-    rgba(61, 44, 141, 1) 100%
+    rgba(133, 87, 206, 1) 0%,
+    rgba(145, 107, 191, 1) 100%
   );
   max-width: 500px; 
   margin: 20px auto 20px auto;
@@ -186,12 +193,20 @@ ul {
 .todo:nth-child(4n + 1) {
   background: linear-gradient(
     180deg,
+    rgba(28, 12, 91, 1) 0%,
+    rgba(61, 44, 141, 1) 100%
+  );
+}
+
+.todo:nth-child(4n + 2) {
+  background: linear-gradient(
+    180deg,
     rgba(61, 44, 141, 1) 0%,
     rgba(56,120,171,1) 100%
   );
 }
 
-.todo:nth-child(4n + 2) {
+.todo:nth-child(4n + 3) {
   background: linear-gradient(
     180deg,
     rgba(56,120,171,1) 0%,
@@ -199,18 +214,15 @@ ul {
   );
 }
 
-.todo:nth-child(4n + 3) {
-  background: linear-gradient(
-    180deg,
-    rgba(133, 87, 206, 1) 0%,
-    rgba(145, 107, 191, 1) 100%
-  );
-}
-
 .signOutButton,
 .button {
   width: 100px;
   margin-top: 20px;
+}
+
+.signOutButton:hover,
+button:hover {
+  transform: translateY(2px);
 }
 
 .sOPad {

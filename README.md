@@ -1,4 +1,4 @@
-<img src="public/JohnLogoNoBG.png" width=100% height=auto>
+<img src="public/JohnLogoNoBG.png" width=25% height=auto>
 
 ## About
 

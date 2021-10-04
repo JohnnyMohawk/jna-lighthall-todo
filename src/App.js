@@ -39,6 +39,7 @@ const App = () => {
       opacity: showForm ? 1 : 0
     }
   });
+  
 
   useEffect(() => {
     fetchTodos()
@@ -524,13 +525,13 @@ export default withAuthenticator(App)
 //   const inputRef = useRef(null)
 //   const today = new Date().toDateString()
 
-//   const listTransitions = useTransition(todos, {
-//     config: config.slow,
-//     from: { opacity: 0, transform: "translate3d(-25%, 0px, 0px)" },
-//     enter: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },
-//     leave: { opacity: 0, height: 0, transform: "translate3d(25%, 0px, 0px)" },
-//     keys: todos.map((todo, index) => index)
-//   });
+  // const listTransitions = useTransition(todos, {
+  //   config: config.slow,
+  //   from: { opacity: 0, transform: "translate3d(-25%, 0px, 0px)" },
+  //   enter: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },
+  //   leave: { opacity: 0, height: 0, transform: "translate3d(25%, 0px, 0px)" },
+  //   keys: todos.map((todo, index) => index)
+  // });
 
 //   const fadeStyles = useSpring({
 //     config: { ...config.molasses },

@@ -6,7 +6,7 @@ This is a Serverless React App built using AWS Amplify. It is a simple To Do Lis
 
 ## Getting Started
 
-The To Do App is deployed [HERE](https://barks-rec-unleash.herokuapp.com/)
+The To Do App is deployed [HERE](https://dev.d3lb01f3y6lwb8.amplifyapp.com/)
 
 ## Built With
 

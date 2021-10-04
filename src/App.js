@@ -19,6 +19,7 @@ const App = () => {
   const [sortStyle, setSortStyle] = useState("Due First")
   const [showDiv, setShowDiv] = useState(todos.length ? true : false)
   const [showForm, setShowForm] = useState(false)
+  const [sortedTodoArr, setSortedTodoArr] = useState(todos)
 
   const inputRef = useRef(null)
   const today = new Date().toDateString()
@@ -47,7 +48,7 @@ const App = () => {
 
   useEffect(() => {
     setShowDiv(todos.length ? true : false)
-    // sortTodos()
+    sortTodos()
   }, [todos, sortStyle])
 
   function setInput(key, value) {
@@ -96,25 +97,31 @@ const App = () => {
     }
   }
 
-  // function sortTodos() {
-  //   let sortedTodos
-  //   if (sortStyle === "Not Started" || sortStyle === "In Progress" || sortStyle === "Complete" || sortStyle === "Transferred") {
-  //     sortedTodos = todos.filter(todos => (todos.status === sortStyle))
-  //     console.log("BOOMSHAKALAKA", sortedTodos)
-  //   }else if(sortStyle === "Due First"){
-  //     sortedTodos = todos.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
-  //     console.log("HUZZAH", sortedTodos)
-  //   }else if(sortStyle === "Due Last"){
-  //     sortedTodos = todos.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate))
-  //     console.log("HE'S ON FIRE!!!", sortedTodos)
-  //   }else if(sortStyle === "Alphabetically"){
-  //     sortedTodos = todos.sort((a,b)=>a.name.localeCompare(b.name))
-  //     console.log("HADOOKEN!!!", sortedTodos)
-  //   }else if(sortStyle === "All Todos"){
-  //     sortedTodos = todos
-  //     console.log("YOGA FIRE!!!", sortedTodos)
-  //   }
-  // }
+  function sortTodos() {
+    let sortedTodos
+    if (sortStyle === "Not Started" || sortStyle === "In Progress" || sortStyle === "Complete" || sortStyle === "Transferred") {
+      sortedTodos = todos.filter(todos => (todos.status === sortStyle))
+      setSortedTodoArr(sortedTodos)
+      console.log("BOOMSHAKALAKA", sortedTodos)
+    }else if(sortStyle === "Due First"){
+      sortedTodos = todos.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+      setSortedTodoArr(sortedTodos)
+      console.log("HUZZAH", sortedTodos)
+    }else if(sortStyle === "Due Last"){
+      sortedTodos = todos.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate))
+      setSortedTodoArr(sortedTodos)
+      console.log("HE'S ON FIRE!!!", sortedTodos)
+    }else if(sortStyle === "Alphabetically"){
+      sortedTodos = todos.sort((a,b)=>a.name.localeCompare(b.name))
+      setSortedTodoArr(sortedTodos)
+      console.log("HADOOKEN!!!", sortedTodos)
+    }else if(sortStyle === "All Todos"){
+      sortedTodos = todos
+      setSortedTodoArr(sortedTodos)
+      console.log("YOGA FIRE!!!", sortedTodos)
+    }
+    console.log("SORTEDTODOARR", sortedTodoArr)
+  }
 
   return (
     <div>

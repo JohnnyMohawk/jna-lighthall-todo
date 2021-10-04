@@ -192,21 +192,21 @@ const App = () => {
                   <option value="" disabled selected>Sort Todos (Currently Displaying: Due First)</option>
                   <option value="All Todos">All Todos (In Order of Addition)</option>
                   <option value="Due First">Due First</option>
-                  <option value="Due Last">Due Last</option>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                   <option value="Alphabetically">Alphabetically</option>
+                  <option value="Due Last">Due Last</option>
               </select>
             </div>
           </div>
         }
         </animated.div>
-        {sortStyle === "All Todos" && (
+
           <animated.div style={fadeStyles}>
           {
-            todos.map((todo, index) => (
+            sortedTodoArr.map((todo, index) => (
               <div key={todo.id ? todo.id : index} className="todo">
                 <div className="todoCard">
                   <p className="todoName">{todo.name}</p>
@@ -237,8 +237,8 @@ const App = () => {
             ))
           }
           </animated.div>
-        )}
-        {sortStyle === "Not Started" && (
+
+        {/* {sortStyle === "Not Started" && (
           <animated.div style={fadeStyles}>
           {
             todos.filter(todos => (todos.status === "Not Started")).map((todo, index) => (
@@ -482,7 +482,7 @@ const App = () => {
             ))
           }
           </animated.div>
-        )}
+        )} */}
       </div>
       {/* {console.log(today)} */}
     </div>

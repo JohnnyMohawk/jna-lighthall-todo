@@ -55,26 +55,38 @@ const App = () => {
     setFormState({ ...formState, [key]: value })
   }
 
-  function editStatus(id, status) {
-    const updatedTodos = [...todos].map((todo) => {
-      if (todo.id === id) {
-        todo.status = status
-        setInput('status', status)
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
-  }
+  // function editStatus(id, status) {
+  //   const updatedTodos = [...todos].map((todo) => {
+  //     if (todo.id === id) {
+  //       todo.status = status
+  //       // setInput('status', status)
+  //     }
+  //     return todo;
+  //   });
+  //   setTodos(updatedTodos);
+  // }
   
-  function editDueDate(id, dueDate) {
-    const updatedTodos = [...todos].map((todo) => {
-      if (todo.id === id) {
-        todo.dueDate = dueDate
-        setInput('dueDate', dueDate)
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
+  function editStatus(todo, newStatus) {
+    todo.status = newStatus
+    setTodos([...todos])
+    setInput('status', todo.status)
+  }
+
+  // function editDueDate(id, dueDate) {
+  //   const updatedTodos = [...todos].map((todo) => {
+  //     if (todo.id === id) {
+  //       todo.dueDate = dueDate
+  //       // setInput('dueDate', dueDate)
+  //     }
+  //     return todo;
+  //   });
+  //   setTodos(updatedTodos);
+  // }
+
+  function editDueDate(todo, newDueDate) {
+    todo.dueDate = newDueDate
+    setTodos([...todos])
+    setInput('dueDate', todo.dueDate)
   }
 
   async function fetchTodos() {
@@ -219,12 +231,12 @@ const App = () => {
                   minDate={new Date()}
                   onChange={date => {
                     let formatDate = date.toDateString()
-                    editDueDate(todo.id, formatDate)
+                    editDueDate(todo, formatDate)
                   }} 
                 />
                 <p className="labels">Status:</p>
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
-                  editStatus(todo.id, event.target.value)
+                  editStatus(todo, event.target.value)
                 }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>

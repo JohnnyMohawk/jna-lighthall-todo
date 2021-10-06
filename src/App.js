@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
+import { createTodo, deleteTodo, updateTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { animated, useSpring, config } from '@react-spring/web'
 import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react'
@@ -65,6 +65,7 @@ const App = () => {
     });
     setTodos(updatedTodos);
   }
+  
   function editDueDate(id, dueDate) {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
@@ -95,6 +96,18 @@ const App = () => {
       console.log('error creating todo:', err)
     }
   }
+
+  // async function editStatus(id, status) {
+  //   try {
+  //     const updatedTodos = [...todos].map((todo) => {
+  //     if (todo.id === id) {
+        
+  //       await API.graphql(graphqlOperation(updateTodo, {input: todos}))
+  //     }
+  //   } catch (err) {
+  //     console.log('error updating todo:', err)
+  //   }
+  // }
 
   function sortTodos(event) {
     if (event === "Not Started" || event === "In Progress" || event === "Complete" || event === "Transferred") {

@@ -65,6 +65,7 @@ const App = () => {
     });
     setTodos(updatedTodos);
   }
+  
   function editDueDate(id, dueDate) {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
@@ -88,9 +89,10 @@ const App = () => {
     try {
       if (!formState.name || !formState.description || !formState.dueDate || !formState.status) return
       const todo = { ...formState }
-      setTodos([...todos, todo])
+      const newTodo = await API.graphql(graphqlOperation(createTodo, {input: todo}))
+      setTodos([...todos, newTodo.data.createTodo])
       setFormState(initialState)
-      await API.graphql(graphqlOperation(createTodo, {input: todo}))
+      console.log(newTodo.data.createTodo)
     } catch (err) {
       console.log('error creating todo:', err)
     }

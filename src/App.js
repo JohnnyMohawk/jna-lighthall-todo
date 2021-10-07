@@ -70,7 +70,6 @@ const App = () => {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
         todo.dueDate = dueDate
-        // setInput('dueDate', dueDate)
       }
       return todo;
     });
@@ -145,12 +144,6 @@ const App = () => {
             value={formState.description}
             placeholder=" Description"
           />
-          {/* <select name="status" id="status" className="statusDrop input-text-form" onChange={event => setInput('status', event.target.value)}>
-            <option defaultValue="Not Started" value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Complete">Complete</option>
-            <option value="Transferred">Transferred</option>
-          </select> */}
           <DatePicker 
             className="dueDatePicker input-text-form1"
             dateFormat="MM-dd-yyyy"

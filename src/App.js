@@ -70,7 +70,6 @@ const App = () => {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
         todo.dueDate = dueDate
-        setInput('dueDate', dueDate)
       }
       return todo;
     });

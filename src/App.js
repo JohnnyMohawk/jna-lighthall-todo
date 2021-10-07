@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { createTodo, deleteTodo, updateTodo } from './graphql/mutations'
+import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { animated, useSpring, config } from '@react-spring/web'
 import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react'
@@ -55,38 +55,27 @@ const App = () => {
     setFormState({ ...formState, [key]: value })
   }
 
-  // function editStatus(id, status) {
-  //   const updatedTodos = [...todos].map((todo) => {
-  //     if (todo.id === id) {
-  //       todo.status = status
-  //       // setInput('status', status)
-  //     }
-  //     return todo;
-  //   });
-  //   setTodos(updatedTodos);
-  // }
-  
-  function editStatus(todo, newStatus) {
-    todo.status = newStatus
-    setTodos([...todos])
-    setInput('status', todo.status)
+  function editStatus(id, status) {
+    const updatedTodos = [...todos].map((todo) => {
+      if (todo.id === id) {
+        todo.status = status
+        setInput('status', status)
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+    console.log(todos)
   }
 
-  // function editDueDate(id, dueDate) {
-  //   const updatedTodos = [...todos].map((todo) => {
-  //     if (todo.id === id) {
-  //       todo.dueDate = dueDate
-  //       // setInput('dueDate', dueDate)
-  //     }
-  //     return todo;
-  //   });
-  //   setTodos(updatedTodos);
-  // }
-
-  function editDueDate(todo, newDueDate) {
-    todo.dueDate = newDueDate
-    setTodos([...todos])
-    setInput('dueDate', todo.dueDate)
+  function editDueDate(id, dueDate) {
+    const updatedTodos = [...todos].map((todo) => {
+      if (todo.id === id) {
+        todo.dueDate = dueDate
+        setInput('dueDate', dueDate)
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
   }
 
   async function fetchTodos() {
@@ -97,29 +86,30 @@ const App = () => {
     } catch (err) { console.log('error fetching todos') }
   }
 
+  // async function addTodo() {
+  //   try {
+      // if (!formState.name || !formState.description || !formState.dueDate || !formState.status) return
+      // const todo = { ...formState }
+  //     setTodos([...todos, todo])
+  //     setFormState(initialState)
+  //     await API.graphql(graphqlOperation(createTodo, {input: todo}))
+  //   } catch (err) {
+  //     console.log('error creating todo:', err)
+  //   }
+  // }
+
   async function addTodo() {
     try {
       if (!formState.name || !formState.description || !formState.dueDate || !formState.status) return
       const todo = { ...formState }
-      setTodos([...todos, todo])
+      const newTodo = await API.graphql(graphqlOperation(createTodo, {input: todo}))
+      setTodos([...todos, newTodo.data.createTodo])
       setFormState(initialState)
-      await API.graphql(graphqlOperation(createTodo, {input: todo}))
+      console.log(newTodo.data.createTodo)
     } catch (err) {
       console.log('error creating todo:', err)
     }
   }
-
-  // async function editStatus(id, status) {
-  //   try {
-  //     const updatedTodos = [...todos].map((todo) => {
-  //     if (todo.id === id) {
-        
-  //       await API.graphql(graphqlOperation(updateTodo, {input: todos}))
-  //     }
-  //   } catch (err) {
-  //     console.log('error updating todo:', err)
-  //   }
-  // }
 
   function sortTodos(event) {
     if (event === "Not Started" || event === "In Progress" || event === "Complete" || event === "Transferred") {
@@ -217,8 +207,8 @@ const App = () => {
         </animated.div>
         <animated.div style={fadeStyles}>
         {
-          sortedTodoArr.map((todo, index) => (
-            <div key={todo.id ? todo.id : index} className="todo">
+          sortedTodoArr.map((todo) => (
+            <div key={todo.id} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="labels">Todo Description:</p>
@@ -231,12 +221,12 @@ const App = () => {
                   minDate={new Date()}
                   onChange={date => {
                     let formatDate = date.toDateString()
-                    editDueDate(todo, formatDate)
+                    editDueDate(todo.id, formatDate)
                   }} 
                 />
                 <p className="labels">Status:</p>
                 <select name="status" id="status" className="statusDrop" defaultValue={todo.status} onChange={event => {
-                  editStatus(todo, event.target.value)
+                  editStatus(todo.id, event.target.value)
                 }}>
                   <option value="Not Started">Not Started</option>
                   <option value="In Progress">In Progress</option>

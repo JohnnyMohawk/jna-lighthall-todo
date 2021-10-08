@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
+import { createTodo, updateTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { animated, useSpring, config } from '@react-spring/web'
 import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react'
@@ -55,25 +55,40 @@ const App = () => {
     setFormState({ ...formState, [key]: value })
   }
 
-  function editStatus(id, status) {
-    const updatedTodos = [...todos].map((todo) => {
-      if (todo.id === id) {
-        todo.status = status
-        setInput('status', status)
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
+  async function editStatus(todoId, todoStatus) {
+    try {
+        let myTodo
+        const updatedTodos = todos.map((todo) => {
+            if (todo.id === todoId) {
+                myTodo = todo
+                myTodo.status = todoStatus
+                return myTodo
+            }
+            return todo;
+        });
+        await API.graphql(graphqlOperation(updateTodo, { input: { status: myTodo.status, id: myTodo.id } }))
+        setTodos(updatedTodos);
+    } catch (err) {
+        console.log('error updating todo:', err)
+    }
   }
 
-  function editDueDate(id, dueDate) {
-    const updatedTodos = [...todos].map((todo) => {
-      if (todo.id === id) {
-        todo.dueDate = dueDate
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
+  async function editDueDate(todoId, todoDueDate) {
+    try {
+        let myTodo
+        const updatedTodos = todos.map((todo) => {
+            if (todo.id === todoId) {
+                myTodo = todo
+                myTodo.dueDate = todoDueDate
+                return myTodo
+            }
+            return todo;
+        });
+        await API.graphql(graphqlOperation(updateTodo, { input: { dueDate: myTodo.dueDate, id: myTodo.id } }))
+        setTodos(updatedTodos);
+    } catch (err) {
+        console.log('error updating todo:', err)
+    }
   }
 
   async function fetchTodos() {

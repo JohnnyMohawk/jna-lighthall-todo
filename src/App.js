@@ -55,15 +55,33 @@ const App = () => {
     setFormState({ ...formState, [key]: value })
   }
 
-  function editStatus(id, status) {
-    const updatedTodos = [...todos].map((todo) => {
-      if (todo.id === id) {
-        todo.status = status
-        setInput('status', status)
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
+  // function editStatus(id, status) {
+  //   const updatedTodos = [...todos].map((todo) => {
+  //     if (todo.id === id) {
+  //       todo.status = status
+  //       setInput('status', status)
+  //     }
+  //     return todo;
+  //   });
+  //   setTodos(updatedTodos);
+  // }
+
+  async function editStatus(todoId, todoStatus) {
+    try {
+        let myTodo
+        const updatedTodos = todos.map((todo) => {
+            if (todo.id === todoId) {
+                myTodo = todo
+                myTodo.status = todoStatus
+                return myTodo
+            }
+            return todo;
+        });
+        await API.graphql(graphqlOperation(updateTodo, { input: { status: myTodo.status, id: myTodo.id } }))
+        setTodos(updatedTodos);
+    } catch (err) {
+        console.log('error updating todo:', err)
+    }
   }
 
   async function editDueDate(todoId, todoDueDate) {
@@ -82,7 +100,7 @@ const App = () => {
     } catch (err) {
         console.log('error updating todo:', err)
     }
-}
+  }
 
   async function fetchTodos() {
     try {

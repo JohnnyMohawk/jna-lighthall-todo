@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
+import { createTodo, updateTodo, deleteTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { animated, useSpring, config } from '@react-spring/web'
 import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react'
@@ -64,19 +64,25 @@ const App = () => {
       return todo;
     });
     setTodos(updatedTodos);
-    console.log(todos)
   }
 
-  function editDueDate(id, dueDate) {
-    const updatedTodos = [...todos].map((todo) => {
-      if (todo.id === id) {
-        todo.dueDate = dueDate
-        setInput('dueDate', dueDate)
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
-  }
+  async function editDueDate(todoId, todoDueDate) {
+    try {
+        let myTodo
+        const updatedTodos = todos.map((todo) => {
+            if (todo.id === todoId) {
+                myTodo = todo
+                myTodo.dueDate = todoDueDate
+                return myTodo
+            }
+            return todo;
+        });
+        await API.graphql(graphqlOperation(updateTodo, { input: { dueDate: myTodo.dueDate, id: myTodo.id } }))
+        setTodos(updatedTodos);
+    } catch (err) {
+        console.log('error updating todo:', err)
+    }
+}
 
   async function fetchTodos() {
     try {
@@ -86,18 +92,6 @@ const App = () => {
     } catch (err) { console.log('error fetching todos') }
   }
 
-  // async function addTodo() {
-  //   try {
-      // if (!formState.name || !formState.description || !formState.dueDate || !formState.status) return
-      // const todo = { ...formState }
-  //     setTodos([...todos, todo])
-  //     setFormState(initialState)
-  //     await API.graphql(graphqlOperation(createTodo, {input: todo}))
-  //   } catch (err) {
-  //     console.log('error creating todo:', err)
-  //   }
-  // }
-
   async function addTodo() {
     try {
       if (!formState.name || !formState.description || !formState.dueDate || !formState.status) return
@@ -105,7 +99,7 @@ const App = () => {
       const newTodo = await API.graphql(graphqlOperation(createTodo, {input: todo}))
       setTodos([...todos, newTodo.data.createTodo])
       setFormState(initialState)
-      console.log(newTodo.data.createTodo)
+      console.log(newTodo)
     } catch (err) {
       console.log('error creating todo:', err)
     }
@@ -159,12 +153,6 @@ const App = () => {
             value={formState.description}
             placeholder=" Description"
           />
-          <select name="status" id="status" className="statusDrop input-text-form" onChange={event => setInput('status', event.target.value)}>
-            <option defaultValue="Not Started" value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Complete">Complete</option>
-            <option value="Transferred">Transferred</option>
-          </select>
           <DatePicker 
             className="dueDatePicker input-text-form1"
             dateFormat="MM-dd-yyyy"
@@ -207,8 +195,8 @@ const App = () => {
         </animated.div>
         <animated.div style={fadeStyles}>
         {
-          sortedTodoArr.map((todo) => (
-            <div key={todo.id} className="todo">
+          sortedTodoArr.map((todo, index) => (
+            <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
                 <p className="todoName">{todo.name}</p>
                 <p className="labels">Todo Description:</p>

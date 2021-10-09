@@ -210,6 +210,22 @@ button {
   text-decoration: underline;
   margin-bottom: 10px;
   color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.trash:hover {
+  font-size: 30px;
+  color: red;
+  cursor: pointer;
+}
+
+.trash:active {
+  font-size: 30px;
+  color: red;
+  cursor: pointer;
+  transform: translateY(4px);
 }
 
 .todoDescription { 

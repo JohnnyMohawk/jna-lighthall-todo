@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { createTodo, updateTodo } from './graphql/mutations'
+import { createTodo, updateTodo, deleteTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { animated, useSpring, config } from '@react-spring/web'
 import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react'
+import { BsTrash } from 'react-icons/bs'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import './App.css'
@@ -53,6 +54,23 @@ const App = () => {
 
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value })
+  }
+
+  async function removeTodo(todoId) {
+    try {
+        let myTodo
+        todos.map((todo) => {
+            if (todo.id === todoId) {
+                myTodo = todo
+                return myTodo
+            }
+            return todo;
+        });
+        await API.graphql(graphqlOperation(deleteTodo, { input: { id: myTodo.id } }))
+        fetchTodos()
+    } catch (err) {
+        console.log('error deleting todo:', err)
+    }
   }
 
   async function editStatus(todoId, todoStatus) {
@@ -204,7 +222,10 @@ const App = () => {
           sortedTodoArr.map((todo, index) => (
             <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
-                <p className="todoName">{todo.name}</p>
+                <div className="todoName">
+                  <p>{todo.name}</p>
+                  <BsTrash className="trash" onClick={() => removeTodo(todo.id)} />
+                </div>
                 <p className="labels">Todo Description:</p>
                 <p className="todoDescription">{todo.description}</p>
                 <p className="labels">Due Date:</p>

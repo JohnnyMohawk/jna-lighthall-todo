@@ -55,16 +55,22 @@ const App = () => {
     setFormState({ ...formState, [key]: value })
   }
 
-  // function editStatus(id, status) {
-  //   const updatedTodos = [...todos].map((todo) => {
-  //     if (todo.id === id) {
-  //       todo.status = status
-  //       setInput('status', status)
-  //     }
-  //     return todo;
-  //   });
-  //   setTodos(updatedTodos);
-  // }
+  async function removeTodo(todoId) {
+    try {
+        let myTodo
+        todos.map((todo) => {
+            if (todo.id === todoId) {
+                myTodo = todo
+                return myTodo
+            }
+            return todo;
+        });
+        await API.graphql(graphqlOperation(deleteTodo, { input: { id: myTodo.id } }))
+        fetchTodos()
+    } catch (err) {
+        console.log('error deleting todo:', err)
+    }
+  }
 
   async function editStatus(todoId, todoStatus) {
     try {
@@ -97,6 +103,7 @@ const App = () => {
         });
         await API.graphql(graphqlOperation(updateTodo, { input: { dueDate: myTodo.dueDate, id: myTodo.id } }))
         setTodos(updatedTodos);
+        console.log(myTodo.id)
     } catch (err) {
         console.log('error updating todo:', err)
     }
@@ -239,6 +246,7 @@ const App = () => {
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                 </select>
+                <button onClick={() => removeTodo(todo.id)}>DELETE</button>
               </div>
             </div>
           ))

@@ -4,6 +4,7 @@ import { createTodo, updateTodo, deleteTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { animated, useSpring, config } from '@react-spring/web'
 import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react'
+import { BsTrash } from 'react-icons/bs'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import './App.css'
@@ -223,7 +224,10 @@ const App = () => {
           sortedTodoArr.map((todo, index) => (
             <div key={todo.id ? todo.id : index} className="todo">
               <div className="todoCard">
-                <p className="todoName">{todo.name}</p>
+                <div className="todoName">
+                  <p>{todo.name}</p>
+                  <BsTrash className="trash" onClick={() => removeTodo(todo.id)} />
+                </div>
                 <p className="labels">Todo Description:</p>
                 <p className="todoDescription">{todo.description}</p>
                 <p className="labels">Due Date:</p>
@@ -246,7 +250,7 @@ const App = () => {
                   <option value="Complete">Complete</option>
                   <option value="Transferred">Transferred</option>
                 </select>
-                <button onClick={() => removeTodo(todo.id)}>DELETE</button>
+                {/* <button onClick={() => removeTodo(todo.id)}>DELETE</button> */}
               </div>
             </div>
           ))

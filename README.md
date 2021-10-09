@@ -2,7 +2,7 @@
 
 ## About
 
-This is a Serverless React App built using AWS Amplify. It is a simple To Do List program that allows the user to add and edit todos as well as sorting tasks by title, status, due date and alphabetically. 
+This is a full CRUD Serverless React App built using AWS Amplify. It is a simple To Do List program that allows the user to add, edit and delete todos as well as sort tasks by title, status, due date and alphabetical order. 
 
 ## Getting Started
 
@@ -23,6 +23,7 @@ The To Do App is deployed [HERE](https://dev.d3lb01f3y6lwb8.amplifyapp.com/)
 * [React Spring](https://react-spring.io/)
 * [Google Fonts](https://fonts.google.com/)
 * [React Datepicker](https://reactdatepicker.com/)
+* [React Icons](https://react-icons.github.io/react-icons/)
 
 ## Author
 

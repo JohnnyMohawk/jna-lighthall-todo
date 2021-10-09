@@ -258,9 +258,14 @@ input.dueDatePicker,
     max-width: 75px;
     max-height: 75px;
   }
+  
   .johnLogo {
     max-width: 70px;
     max-height: 70px;
     border: solid 5px white;
+  }
+
+  h2 {
+    font-size: 20px;
   }
 }
